@@ -1,0 +1,16 @@
+{
+  "name": "lemail",
+  "version": "0.0.1",
+  "description": "Mailez-vous francais?",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eugene Yaroslavtsev <eugene@groveyard.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.9.0",
+    "bunyan": "^1.0.1",
+    "lodash": "^2.4.1"
+  }
+}
