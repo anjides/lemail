@@ -14,7 +14,15 @@
 
 'use strict';
 
+var log = require('./log').child({ module: 'router' })
+	, MessagesRoute = require('../routes/messages');
+
 var mount = function(app) {
+	log.info('mounting router on app');
+	log.debug(app);
+
+	app.post('/messages', MessagesRoute.create);
 };
 
-module.exports = mount;
+exports.mount = mount;
+

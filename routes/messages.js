@@ -14,13 +14,15 @@
 
 'use strict';
 
-var express = require('express')
-	, log = require('./core/log').child({ module: 'core' })
-	, router = require('./core/router')
-	, config = require('./core/config');
+var MandrillMailer = require('../modules/mandrill-mailer')
+	, log = require('../core/log').child({ module: 'api' })
+	, config = require('../core/config');
 
-var app = express();
-router.mount(app);
+var mandrillMailer = new MandrillMailer({ apiKey: config.mandrillApiKey });
 
-app.listen(config.port);
-log.info('listening on port %s', config.port);
+var create = function(req, res, next) {
+	// send message
+	mandrillMailer.send({ subject: 'Herp', message: 'Derp' });
+};
+
+exports.create = create;

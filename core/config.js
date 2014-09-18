@@ -19,15 +19,17 @@ var _ = require('lodash');
 var config = {
 	
 	development: {
-		appName: 		process.env.APP_NAME || 'lemail-api-dev',
-		port: 			process.env.PORT || 8000,
-		logLevel: 		process.env.LOG_LEVEL || 'debug'
+		appName: 			process.env.APP_NAME || 'lemail-api-dev',
+		port: 				process.env.PORT || 8000,
+		logLevel: 			process.env.LOG_LEVEL || 'debug',
+		mandrillApiKey: 	process.env.MANDRILL_API_KEY
 	},
 
 	production: {
-		appName: 		process.env.APP_NAME || 'lemail-api',
-		port: 			process.env.PORT || 8000,
-		logLevel: 		process.env.LOG_LEVEL || 'error'
+		appName: 			process.env.APP_NAME || 'lemail-api',
+		port: 				process.env.PORT || 8000,
+		logLevel: 			process.env.LOG_LEVEL || 'error',
+		mandrillApiKey: 	process.env.MANDRILL_API_KEY		
 	}
 
 };

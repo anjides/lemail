@@ -14,13 +14,26 @@
 
 'use strict';
 
-var express = require('express')
-	, log = require('./core/log').child({ module: 'core' })
-	, router = require('./core/router')
-	, config = require('./core/config');
+var Mailer = function(options) {
+	this.options = options || {};
+};
 
-var app = express();
-router.mount(app);
+/**
+ * Send a plaintext e-mail message
+ *
+ * Message
+ * - `subject` 		Message subject
+ * - `text`			Message text
+ * - `fromEmail`	From e-mail
+ * - `toEmail`		To e-mail
+ *
+ * @param param type
+ * @return return type (Promise, String, etc)
+ * @promiseSuccess promise success return
+ * @api promise success return
+ */
+Mailer.prototype.send = function(msg) {
+	throw new Error('Mailer#send must be overridden!');
+};
 
-app.listen(config.port);
-log.info('listening on port %s', config.port);
+module.exports = Mailer;

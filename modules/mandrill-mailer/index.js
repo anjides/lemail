@@ -14,13 +14,6 @@
 
 'use strict';
 
-var express = require('express')
-	, log = require('./core/log').child({ module: 'core' })
-	, router = require('./core/router')
-	, config = require('./core/config');
+var MandrillMailer = require('./mandrill-mailer');
 
-var app = express();
-router.mount(app);
-
-app.listen(config.port);
-log.info('listening on port %s', config.port);
+module.exports = MandrillMailer;

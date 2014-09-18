@@ -12,15 +12,8 @@
 // OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 // PERFORMANCE OF THIS SOFTWARE.
 
-'use strict';
+// Abstract base class for Mailers
 
-var express = require('express')
-	, log = require('./core/log').child({ module: 'core' })
-	, router = require('./core/router')
-	, config = require('./core/config');
+var Mailer = require('./mailer');
 
-var app = express();
-router.mount(app);
-
-app.listen(config.port);
-log.info('listening on port %s', config.port);
+module.exports = Mailer;
