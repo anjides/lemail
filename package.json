@@ -4,6 +4,7 @@
   "description": "Mailez-vous francais?",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eugene Yaroslavtsev <eugene@groveyard.com>",
@@ -15,5 +16,8 @@
     "validate.js": "^0.3.0",
     "superagent": "^0.18.2",
     "bluebird": "^2.3.2"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }

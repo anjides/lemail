@@ -17,8 +17,6 @@
 var bunyan = require('bunyan'),
 	config = require('./config');
 
-console.log(config);
-
 var logger = bunyan.createLogger({ name: config.appName });
 
 module.exports = logger;
