@@ -14,11 +14,7 @@
 
 'use strict';
 
-var express = require('express')
-	, log = require('./core/log').child({ module: 'core' })
-	, config = require('./core/config');
+var mount = function(app) {
+};
 
-var app = express();
-
-app.listen(config.port);
-log.info('listening on port %s', config.port);
+module.exports = mount;

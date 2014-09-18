@@ -30,6 +30,8 @@ Tech used:
 - express (routing, parsing, validation)
 - superagent (sending HTTP requests)
 - lodash (general utilities)
+- bluebird (promises)
+- validate.js (route validation)
 
 ##### Web client
 
