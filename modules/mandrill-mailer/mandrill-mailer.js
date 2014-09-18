@@ -18,7 +18,8 @@ var util = require('util')
 	, request = require('superagent')
 	, Promise = require('bluebird')
 	, _ = require('lodash')
-	, Mailer = require('../mailer');
+	, Mailer = require('../mailer')
+	, log = require('../../core/log').child({ module: 'mandrill-mailer '});
 
 var MailerOptions = {
 	baseUrl: 'https://mandrillapp.com/api/1.0'
@@ -46,21 +47,47 @@ var MandrillMailer = function(options) {
 	Mailer.call(this, options);
 };
 
+util.inherits(MandrillMailer, Mailer);
+
 /**
  * Send a plaintext e-mail message
  *
- * @param {Object} msg
+ * @param {Object} message
  * @return {Promise}
  * @api public
  */
-MandrillMailer.prototype.send = function(msg) {
-	// request.post(baseUrl + '/messages/send.json')
-	// 	.send({
-	// 		key: this.options.apiKey,
+MandrillMailer.prototype.send = function(message) {
+	log.debug('sending message:', message);
 
-	// 	})
+	var deferred = Promise.defer();
+
+	request.post(this.options.baseUrl + '/messages/send.json')
+		.send({
+			key: this.options.apiKey,
+			message: {
+				subject: message.subject,
+				text: message.text,
+				from_email: message.fromEmail,
+				to: [
+					{
+						email: message.toEmail
+					}
+				]
+			}
+		})
+		.end(function(res) {
+			if (!res.ok) {
+				deferred.reject(new Error(res.text));
+				return;
+			}
+
+			log.debug('successfully sent message:', res.body);
+			deferred.resolve();
+		});
+
+	return deferred.promise;
 };
 
-util.inherits(MandrillMailer, Mailer);
 
 module.exports = MandrillMailer;
+

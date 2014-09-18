@@ -22,7 +22,10 @@ var mandrillMailer = new MandrillMailer({ apiKey: config.mandrillApiKey });
 
 var create = function(req, res, next) {
 	// send message
-	mandrillMailer.send({ subject: 'Herp', message: 'Derp' });
+	mandrillMailer.send({ subject: 'Herp', text: 'Derp', fromEmail: 'exhaze@gmail.com', toEmail: 'exhaze@gmail.com' })
+	.then(function() {
+		res.status(201).json({});
+	}, next);
 };
 
 exports.create = create;
