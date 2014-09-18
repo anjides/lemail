@@ -7,6 +7,7 @@
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": "https://github.com/exhaze/lemail/",
   "author": "Eugene Yaroslavtsev <eugene@groveyard.com>",
   "license": "ISC",
   "dependencies": {
