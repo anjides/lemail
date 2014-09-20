@@ -24,8 +24,8 @@ var Mailer = function(options) {
  * Message
  * - `subject` 		Message subject
  * - `text`			Message text
- * - `fromEmail`	From e-mail
- * - `toEmail`		To e-mail
+ * - `from`			From e-mail
+ * - `to`			To e-mail
  *
  * @param param type
  * @return return type (Promise, String, etc)

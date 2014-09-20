@@ -15,11 +15,15 @@
 'use strict';
 
 var express = require('express')
+	, bodyParser = require('body-parser')
 	, log = require('./core/log').child({ module: 'core' })
 	, router = require('./core/router')
 	, config = require('./core/config');
 
 var app = express();
+
+app.use(bodyParser.json());
+
 router.mount(app);
 
 app.listen(config.port);

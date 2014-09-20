@@ -22,14 +22,18 @@ var config = {
 		appName: 			process.env.APP_NAME || 'lemail-api-dev',
 		port: 				process.env.PORT || 8000,
 		logLevel: 			process.env.LOG_LEVEL || 'debug',
-		mandrillApiKey: 	process.env.MANDRILL_API_KEY
+		mandrillApiKey: 	process.env.MANDRILL_API_KEY,
+		mailgunApiKey:		process.env.MAILGUN_API_KEY,
+		mailgunDomain:		process.env.MAILGUN_DOMAIN
 	},
 
 	production: {
 		appName: 			process.env.APP_NAME || 'lemail-api',
 		port: 				process.env.PORT || 8000,
 		logLevel: 			process.env.LOG_LEVEL || 'error',
-		mandrillApiKey: 	process.env.MANDRILL_API_KEY		
+		mandrillApiKey: 	process.env.MANDRILL_API_KEY,
+		mailgunApiKey:		process.env.MAILGUN_API_KEY,
+		mailgunDomain:		process.env.MAILGUN_DOMAIN
 	}
 
 };

@@ -16,7 +16,8 @@
     "lodash": "^2.4.1",
     "validate.js": "^0.3.0",
     "superagent": "^0.18.2",
-    "bluebird": "^2.3.2"
+    "bluebird": "^2.3.2",
+    "body-parser": "^1.8.2"
   },
   "engines": {
     "node": "0.10.x"

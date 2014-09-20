@@ -14,14 +14,6 @@
 
 'use strict';
 
-var log = require('./log').child({ module: 'router' })
-	, MessagesRoute = require('../routes/messages');
+var MailgunMailer = require('./mailgun-mailer');
 
-var mount = function(app) {
-	log.info('mounting router on app');
-	
-	app.post('/messages', MessagesRoute.create);
-};
-
-exports.mount = mount;
-
+module.exports = MailgunMailer;

@@ -22,32 +22,37 @@ var util = require('util')
 	, log = require('../../core/log').child({ module: 'mandrill-mailer '});
 
 var MailerOptions = {
-	baseUrl: 'https://mandrillapp.com/api/1.0'
+	baseUrl: 'https://api.mailgun.net/v2'
 };
 
 /**
- * `MandrillMailer` constructor
+ * `MailgunMailer` constructor
  * 
- * The Mandrill mailer uses the Mandrill REST API (version 1.0) to send email
+ * The Mailgun mailer uses the Mailgun REST API (version 2) to send email
  * messages
  *
  * Options
- * - `apiKey`		Your Mandrill API key (required)
+ * - `apiKey`		Your Mailgun API key (required)
+ * - `domain`		Domain that Mailgun will use to send your messages (required)
  * 
  * @param {Object} options
  * @api public
  */
-var MandrillMailer = function(options) {
+var MailgunMailer = function(options) {
 	options = _.extend({}, MailerOptions, options);
 
 	if (!options.apiKey) {
 		throw new Error('Missing required apiKey parameter!');
 	}
 
+	if (!options.domain) {
+		throw new Error('Missing required domain parameter!');
+	}
+
 	Mailer.call(this, options);
 };
 
-util.inherits(MandrillMailer, Mailer);
+util.inherits(MailgunMailer, Mailer);
 
 /**
  * Send a plaintext e-mail message
@@ -56,25 +61,20 @@ util.inherits(MandrillMailer, Mailer);
  * @return {Promise}
  * @api public
  */
-MandrillMailer.prototype.send = function(message) {
+MailgunMailer.prototype.send = function(message) {
 	log.debug('sending message:', message);
 
 	var deferred = Promise.defer();
 
 	request
-		.post(this.options.baseUrl + '/messages/send.json')
+		.post(this.options.baseUrl + '/' + this.options.domain + '/messages')	
+		.auth('api', this.options.apiKey)
+		.type('form')	// will set Content-Type to application/x-www-form-urlencoded
 		.send({
-			key: this.options.apiKey,
-			message: {
-				subject: message.subject,
-				text: message.text,
-				from_email: message.from,
-				to: [
-					{
-						email: message.to
-					}
-				]
-			}
+			subject: message.subject,
+			text: message.text,
+			from: message.from,
+			to: message.to
 		})
 		.end(function(res) {
 			if (!res.ok) {
@@ -89,6 +89,5 @@ MandrillMailer.prototype.send = function(message) {
 	return deferred.promise;
 };
 
-
-module.exports = MandrillMailer;
+module.exports = MailgunMailer;
 

@@ -15,15 +15,26 @@
 'use strict';
 
 var MandrillMailer = require('../modules/mandrill-mailer')
+	, MailgunMailer = require('../modules/mailgun-mailer')
+	, Promise = require('bluebird')
 	, log = require('../core/log').child({ module: 'api' })
 	, config = require('../core/config');
 
-var mandrillMailer = new MandrillMailer({ apiKey: config.mandrillApiKey });
+var mandrillMailer = new MandrillMailer({ apiKey: config.mandrillApiKey })
+	, mailgunMailer = new MailgunMailer(
+		{ 	apiKey: config.mailgunApiKey,
+			domain: config.mailgunDomain
+		});
 
 var create = function(req, res, next) {
 	// send message
-	mandrillMailer.send({ subject: 'Herp', text: 'Derp', fromEmail: 'exhaze@gmail.com', toEmail: 'exhaze@gmail.com' })
-	.then(function() {
+	Promise.all([
+		mandrillMailer.send(req.body),
+		mailgunMailer.send(req.body)
+	])
+	.spread(function(mandrillResult, mailgunResult) {
+		log.info('mandrill result:', mandrillResult);
+		log.info('mailgun result:', mailgunResult);
 		res.status(201).json({});
 	}, next);
 };
