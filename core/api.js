@@ -14,14 +14,18 @@
 
 'use strict';
 
-var log = require('./log').child({ module: 'router' })
+var express = require('express')
+	, log = require('./log').child({ module: 'api' })
 	, MessagesRoute = require('../routes/messages');
 
-var mount = function(app) {
-	log.info('mounting router on app');
-	
+var api = function() {
+	var app = express();
+	log.info('created api');
+		
 	app.post('/messages', MessagesRoute.create);
+
+	return app;
 };
 
-exports.mount = mount;
+module.exports = api;
 

@@ -14,10 +14,12 @@
 
 'use strict';
 
+var API_VERSION = 'v1';
+
 var express = require('express')
 	, bodyParser = require('body-parser')
 	, log = require('./core/log').child({ module: 'core' })
-	, router = require('./core/router')
+	, api = require('./core/api')
 	, errorHandler = require('./core/error-handler')
 	, config = require('./core/config');
 
@@ -25,8 +27,11 @@ var app = express();
 
 app.use(bodyParser.json());
 
-router.mount(app);
+app.use(express.static(__dirname + '/public'));
 
+app.use('/' + API_VERSION + '/', api());
+
+// error handler should go last
 app.use(errorHandler);
 
 app.listen(config.port);
