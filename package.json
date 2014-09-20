@@ -8,7 +8,7 @@
     "test": "mocha"
   },
   "repository": "https://github.com/exhaze/lemail/",
-  "author": "Eugene Yaroslavtsev <eugene@groveyard.com>",
+  "author": "Eugene Yaroslavtsev <exhaze@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "express": "^4.9.0",

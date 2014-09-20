@@ -1,24 +1,29 @@
 ## Le Mail
-Write e-mail faster.
+An e-mail client.
 
-#### Project motivations
-I don't like creating things that don't provide a "[quantum of utility](https://news.ycombinator.com/item?id=542768)". So I thought that, even with this project, I'd turn it into something that I'd actually use. 
+#### Project chosen
+E-mail
 
-E-mail should not take as much time as it does for most people right now. Having observed those who I consider good at e-mail, one thing I've noticed is how quickly they write and send them out. With this in mind, I created two rules for sending e-mail faster:
-
-- the email must be written in less than 5 minutes
-- you must type something at least every 10 seconds
-
-If you don't do follow these two rules, the e-mail gets erased. These two rules act a forcing function to let you get thru e-mails faster and get back to doing whatever it is you'd rather be doing instead.
+#### Track chosen
+Backend (originally was going to do full stack, but didn't due to time constraints).
 
 #### My background
 My experience is a mix of:
 
 - node.js (backend)
 - backbone, angular (frontend)
+- iOS
 
-I've definitely spent more time on the backend than on frontend, so please take note of that when looking at the frontend code.
+#### Technical choices
+I chose to do the API as a pure REST service because I find that this pays dividends down the line when you have more than one client using it (i.e. a mobile app). I think most of the choices with regard to NPM modules used are pretty self-explanatory, ping me if you want clarification on any of the choices.
 
+#### Future improvements
+
+- add authentication
+- make the e-mail requests get put into a queue and have e-mail workers get them from the queue to make them send
+
+#### Other code
+Most of the code I've written is proprietary, so I can't disclose it.
 
 #### Components
 
@@ -27,16 +32,22 @@ I've definitely spent more time on the backend than on frontend, so please take 
 Tech used:
 
 - node.js
-- express (routing, parsing, validation)
+- express (routing, parsing request body)
+- bunyan (logging)
 - superagent (sending HTTP requests)
 - lodash (general utilities)
 - bluebird (promises)
 - validate.js (route validation)
+- mocha (tests)
+
+API docs are provided in the include `API.md` file.
 
 ##### Web client
 
+I ran out of time here (iOS 8 release, so all my time, incl. weekends was taken up working on that), so I just did a barebones frontend with Bootstrap and jQuery.
+
 Tech used:
 
-- backbone.js
-- Facebook Flux
-- Facebook React
+- jQuery
+- Bootstrap
+- HTML5 boilerplate
