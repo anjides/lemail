@@ -14,6 +14,23 @@
 
 'use strict';
 
+var validator = require('validate.js');
+
+var MessageValidator = {
+	from: {
+		email: true
+	},
+	to: {
+		email: true
+	},
+	subject: {
+		presence: true
+	},
+	text: {
+		presence: true
+	}
+};
+
 var Mailer = function(options) {
 	this.options = options || {};
 };
@@ -27,13 +44,24 @@ var Mailer = function(options) {
  * - `from`			From e-mail
  * - `to`			To e-mail
  *
- * @param param type
- * @return return type (Promise, String, etc)
- * @promiseSuccess promise success return
- * @api promise success return
+ * @param {Object} message
+ * @return {Promise}
+ * @api public
  */
-Mailer.prototype.send = function(msg) {
+Mailer.prototype.send = function(message) {
 	throw new Error('Mailer#send must be overridden!');
 };
 
-module.exports = Mailer;
+/**
+ * Validate a message
+ *
+ * @param {Object} message
+ * @return {Object} errors
+ * @api public
+ */
+var validate = function(message) {
+	return validator(message, MessageValidator);
+};
+
+exports.Mailer = Mailer;
+exports.validate = validate;

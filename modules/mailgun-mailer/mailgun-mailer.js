@@ -18,7 +18,7 @@ var util = require('util')
 	, request = require('superagent')
 	, Promise = require('bluebird')
 	, _ = require('lodash')
-	, Mailer = require('../mailer')
+	, Mailer = require('../mailer').Mailer
 	, log = require('../../core/log').child({ module: 'mandrill-mailer '});
 
 var MailerOptions = {

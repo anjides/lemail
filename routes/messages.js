@@ -17,26 +17,12 @@
 var MandrillMailer = require('../modules/mandrill-mailer')
 	, MailgunMailer = require('../modules/mailgun-mailer')
 	, MultiMailer = require('../modules/multi-mailer')
+	, validate = require('../modules/mailer').validate
 	, Promise = require('bluebird')
 	, validate = require('validate.js')
 	, _ = require('lodash')
 	, log = require('../core/log').child({ module: 'api' })
 	, config = require('../core/config');
-
-var MessageValidator = {
-	from: {
-		email: true
-	},
-	to: {
-		email: true
-	},
-	subject: {
-		presence: true
-	},
-	text: {
-		presence: true
-	}
-};
 
 var mandrillMailer = new MandrillMailer({ apiKey: config.mandrillApiKey })
 	, mailgunMailer = new MailgunMailer(
@@ -52,7 +38,7 @@ var create = function(req, res, next) {
 
 	var message = req.body;
 
-	var errors = validate(message, MessageValidator);
+	var errors = validate(message);
 
 	if (errors) {
 		var err = new Error(errors);

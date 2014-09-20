@@ -17,7 +17,7 @@
 var util = require('util')
 	, Promise = require('bluebird')
 	, _ = require('lodash')
-	, Mailer = require('../mailer')
+	, Mailer = require('../mailer').Mailer
 	, log = require('../../core/log').child({ module: 'multi-mailer '});
 
 /**
