@@ -61,9 +61,6 @@ MandrillMailer.prototype.send = function(message) {
 
 	var deferred = Promise.defer();
 
-	// deferred.reject('Derp');
-	// return deferred.promise;
-
 	request
 		.post(this.options.baseUrl + '/messages/send.json')
 		.send({

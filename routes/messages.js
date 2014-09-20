@@ -16,6 +16,7 @@
 
 var MandrillMailer = require('../modules/mandrill-mailer')
 	, MailgunMailer = require('../modules/mailgun-mailer')
+	, MultiMailer = require('../modules/multi-mailer')
 	, Promise = require('bluebird')
 	, validate = require('validate.js')
 	, _ = require('lodash')
@@ -45,28 +46,7 @@ var mandrillMailer = new MandrillMailer({ apiKey: config.mandrillApiKey })
 
 var mailers = [ mandrillMailer, mailgunMailer ];
 
-var send = function(message, mailers) {
-	if (!mailers || !mailers.length) {
-		return Promise.reject('No mailers provided');
-	}
-
-	var tryMailer = function(index, message) {
-		var mailer = mailers[index];
-
-		log.info('trying mailer at index %s', index);
-
-		if (!mailer) {
-			return Promise.reject('Couldn\'t send mail, all mail servers failed');
-		}
-
-		return mailer.send(message).catch(function(err) {
-			log.warn('mailer failed to send message:', err);
-			return tryMailer(++index, message);			
-		});
-	};
-
-	return tryMailer(0, message);
-};
+var multiMailer = new MultiMailer({ mailers: mailers });
 
 var create = function(req, res, next) {
 
@@ -80,9 +60,7 @@ var create = function(req, res, next) {
 		throw err;
 	}
 
-	var shuffledMailers = _.shuffle(mailers);
-
-	send(message, shuffledMailers).then(function() {
+	multiMailer.send(message).then(function() {
 		res.status(201).json({});
 	}, next);
 };
