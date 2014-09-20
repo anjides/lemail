@@ -18,9 +18,11 @@ var validator = require('validate.js');
 
 var MessageValidator = {
 	from: {
+		presence: true,
 		email: true
 	},
 	to: {
+		presence: true,
 		email: true
 	},
 	subject: {
