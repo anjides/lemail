@@ -14,20 +14,12 @@
 
 'use strict';
 
-var express = require('express')
-	, bodyParser = require('body-parser')
-	, log = require('./core/log').child({ module: 'core' })
-	, router = require('./core/router')
-	, errorHandler = require('./core/error-handler')
-	, config = require('./core/config');
+var errorHandler = function(err, req, res, next) {
+	var code = err.code || 500;
 
-var app = express();
+	res.status(code).json({
+		message: err
+	});
+};
 
-app.use(bodyParser.json());
-
-router.mount(app);
-
-app.use(errorHandler);
-
-app.listen(config.port);
-log.info('listening on port %s', config.port);
+module.exports = errorHandler;
