@@ -19,7 +19,6 @@ var MandrillMailer = require('../modules/mandrill-mailer')
 	, MultiMailer = require('../modules/multi-mailer')
 	, validate = require('../modules/mailer').validate
 	, Promise = require('bluebird')
-	, validate = require('validate.js')
 	, _ = require('lodash')
 	, log = require('../core/log').child({ module: 'api' })
 	, config = require('../core/config');
@@ -41,9 +40,10 @@ var create = function(req, res, next) {
 	var errors = validate(message);
 
 	if (errors) {
-		var err = new Error(errors);
+		var err = new Error();
+		err.message = errors;
 		err.code = 400;
-		throw err;
+		return next(err);
 	}
 
 	multiMailer.send(message).then(function() {

@@ -77,7 +77,8 @@ MandrillMailer.prototype.send = function(message) {
 			}
 		})
 		.end(function(res) {
-			if (!res.ok) {
+			if (!res.ok || 
+				(res.body && res.body[0] && res.body[0].status === 'invalid')) {
 				deferred.reject(new Error(res.text));
 				return;
 			}

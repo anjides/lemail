@@ -18,7 +18,7 @@ var errorHandler = function(err, req, res, next) {
 	var code = err.code || 500;
 
 	res.status(code).json({
-		message: err
+		message: err.message
 	});
 };
 
